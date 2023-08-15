@@ -1,0 +1,8 @@
+svg{
+    width: 50vw;
+
+}
+
+svg *{
+    width: 100%;
+}
