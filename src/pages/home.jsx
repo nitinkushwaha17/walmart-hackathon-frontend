@@ -57,11 +57,15 @@ const searchBox = {
 }
 
 const Home = () => {
-    const [showProd, SetShowProd] = useState(false);
+    const [showProd, setShowProd] = useState(false);
+    const [product, setProduct] = useState(null);
 
-    function search(text){
+    async function search(text){
         console.log(text);
-        SetShowProd(true);
+        let data = await fetch(`/${text}`);
+        let prodData = await data.json();
+        setProduct(prodData);
+        setShowProd(true);
     }
 
     function handleKeyDown(e){
@@ -82,7 +86,10 @@ const Home = () => {
                     <Paper sx={{backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent:'center'}}>
                         <motion.div variants={item} animate={showProd?"visible":"hidden"} transition={{duration:0.5, delay: 0.2}}>
                             <Box sx={prod}>
-                                <Avatar sx={img} alt="JBL Cinema SB241" src="https://m.media-amazon.com/images/I/31wSAoUC+tL._AC_SR480,480_.jpg" />
+                                {/* {product&&
+                                <Avatar sx={img} alt="JBL Cinema SB241" src="https://m.media-amazon.com/images/I/31wSAoUC+tL._AC_SR480,480_.jpg" />} */}
+                                {product&&
+                                <Avatar sx={img} alt="JBL Cinema SB241" src={prod.image} />}
                             </Box>
                         </motion.div>
                         <motion.div variants={item} animate={showProd?"visible":"hidden"} transition={{duration:0.5, delay: 0.3}}>
